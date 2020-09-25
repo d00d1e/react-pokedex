@@ -2,6 +2,8 @@
 
 JS | REACT 
 
+<img src="src/components/layout/images/screenshot.png">
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -68,4 +70,3 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-# react-pokedex
