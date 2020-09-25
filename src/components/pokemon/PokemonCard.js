@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import spinner from '../layout/images/spinner.gif';
 
 const Sprite = styled.img`
-  width: 5em;
-  height: 5em;
+  width: 5.5em;
+  height: 5.5em;
 `;
 
 const Card = styled.div`

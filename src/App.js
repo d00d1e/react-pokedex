@@ -6,12 +6,10 @@ import Navbar from './components/layout/Navbar';
 import Dashboard from './components/layout/Dashboard';
 import Pokemon from './components/pokemon/Pokemon';
 
-import backgroundImage from './components/layout/images/background.jpg';
-
+import backgroundImage from './components/layout/images/background2.jpg';
 import './App.css';
 
-
-function App() {
+export default function App() {
   return (
     <Router>
       <div className="App" style={{ background: `url(${backgroundImage})` }}>
@@ -27,4 +25,3 @@ function App() {
   );
 }
 
-export default App;
