@@ -185,8 +185,8 @@ export default class Pokemon extends Component {
               <div className="col-5">
                 <h4>#{this.state.pokemonIndex}</h4>
               </div>
-              <div className="col-7">
-                <div className="float-right">
+              <div className="col-6">
+                <div className="float-center">
                   {this.state.types.map(type => (
                     <span
                       key={type}
@@ -205,6 +205,9 @@ export default class Pokemon extends Component {
                   ))}
                 </div>
               </div>
+              <div className="col-1 float-right">
+                  <a href="/" className="text-uppercase">Back</a>
+                </div>
             </div>
           </div>
           <div className="card-body">
