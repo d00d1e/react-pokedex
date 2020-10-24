@@ -11,7 +11,7 @@ import './App.css';
 
 export default function App() {
   return (
-    <Router>
+    <Router basename="/react-pokedex" >
       <div className="App" style={{ background: `url(${backgroundImage})` }}>
         <Navbar />
         <div className="container">

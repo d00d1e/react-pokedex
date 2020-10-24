@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink as Link } from 'react-router-dom';
 import axios from 'axios';
 
 const TYPE_COLORS = {
@@ -185,7 +186,7 @@ export default class Pokemon extends Component {
               <div className="col-5">
                 <h4>#{this.state.pokemonIndex}</h4>
               </div>
-              <div className="col-6">
+              <div className="col-5">
                 <div className="float-center">
                   {this.state.types.map(type => (
                     <span
@@ -205,8 +206,8 @@ export default class Pokemon extends Component {
                   ))}
                 </div>
               </div>
-              <div className="col-1 float-right">
-                  <a href="/" className="text-uppercase">Back</a>
+              <div className="col-2">
+                  <Link to="/" className="text-uppercase float-right">Back</Link>
                 </div>
             </div>
           </div>
