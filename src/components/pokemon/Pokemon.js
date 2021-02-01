@@ -58,9 +58,12 @@ export default class Pokemon extends Component {
 
     // get pokemon information
     const pokemonRes = await axios.get(pokemonUrl);
-
     const name = pokemonRes.data.name;
-    const imageUrl = pokemonRes.data.sprites.front_default;
+
+    // const imageUrl = pokemonRes.data.sprites.front_default;
+    let padToThree = (number) => (number <= 999 ? `00${number}`.slice(-3) : number);
+    const POKE_API = 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/';
+    const imageUrl = `${POKE_API}${padToThree(pokemonIndex)}.png`;
 
     let { hp, attack, defense, speed, specialAttack, specialDefense } = '';
 
@@ -126,7 +129,7 @@ export default class Pokemon extends Component {
           description = flavor.flavor_text;
           return true;
         } return false;
-        
+
       });
 
       const femaleRate = res.data['gender_rate'];
@@ -145,7 +148,7 @@ export default class Pokemon extends Component {
         .join(', ');
 
       const hatchSteps = 255 * (res.data['hatch_counter'] + 1);
-      
+
       this.setState({
         description,
         genderRatioFemale,
@@ -153,7 +156,7 @@ export default class Pokemon extends Component {
         catchRate,
         eggGroups,
         hatchSteps
-      });  
+      });
     });
 
     this.setState({
@@ -207,8 +210,8 @@ export default class Pokemon extends Component {
                 </div>
               </div>
               <div className="col-2">
-                  <Link to="/" className="text-uppercase float-right">Back</Link>
-                </div>
+                <Link to="/" className="text-uppercase float-right">Back</Link>
+              </div>
             </div>
           </div>
           <div className="card-body">
@@ -360,7 +363,7 @@ export default class Pokemon extends Component {
           </div>
           <hr />
           <div className="card-body">
-            <h5 class="card-title text-center">Profile</h5>
+            <h5 className="card-title text-center">Profile</h5>
             <div className="row">
               <div className="col-md-6">
                 <div className="row">
