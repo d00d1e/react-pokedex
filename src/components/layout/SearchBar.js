@@ -1,24 +1,26 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const Input = styled.input`
   width: 28rem;
   text-indent: 10px;
+  outline: none;
 `;
 
-export default class SearchBar extends Component {
+const Button = styled.button`
+  display: none;
+`;
 
-
-  render() {
-    return (
-      <div className="text-center p-4 pb-5">
-        <Input
-          type="search"
-          // value={value}
-          placeholder="Search Pokémon"
-          // onChange={}
-        />
-      </div>
-    );
-  }
+export default function SearchBar(props) {
+  return (
+    <div className="text-center p-5">
+      <Input
+        type="search"
+        value={props.search}
+        placeholder="Search Pokémon"
+        onChange={(e) => props.setSearch(e.target.value)}
+      />
+      <Button type="submit">Search</Button>
+    </div>
+  );
 }

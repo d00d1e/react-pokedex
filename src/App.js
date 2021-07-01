@@ -1,18 +1,25 @@
-import React from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom'; // Hashrouter for GitHub hosting
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import { HashRouter as Router, Route, Switch } from "react-router-dom"; // Hashrouter for GitHub hosting
 
-import Navbar from './components/layout/Navbar';
-import Dashboard from './components/layout/Dashboard';
-import Pokemon from './components/pokemon/Pokemon';
+import Navbar from "./components/layout/Navbar";
+import Dashboard from "./components/layout/Dashboard";
+import Pokemon from "./components/pokemon/Pokemon";
 
-import backgroundImage from './components/layout/images/background2.jpg';
-import './App.css';
+import backgroundImage from "./components/layout/images/bg.jpg";
+import "./App.css";
 
 export default function App() {
   return (
-    <Router basename="/react-pokedex" >
-      <div className="App" style={{ background: `url(${backgroundImage})` }}>
+    <Router basename="/react-pokedex">
+      <div
+        className="App"
+        style={{
+          background: `url(${backgroundImage})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundAttachment: "fixed",
+        }}
+      >
         <Navbar />
         <div className="container">
           <Switch>
@@ -24,4 +31,3 @@ export default function App() {
     </Router>
   );
 }
-

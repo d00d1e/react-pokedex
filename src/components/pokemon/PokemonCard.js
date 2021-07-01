@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
-import styled from 'styled-components';
-import spinner from '../layout/images/spinner.gif';
+import styled from "styled-components";
+import spinner from "../layout/images/spinner.gif";
 
 const Sprite = styled.img`
   width: 5.5em;
@@ -10,7 +10,7 @@ const Sprite = styled.img`
 `;
 
 const Card = styled.div`
-  // opacity: 0.95;
+  /* opacity: 0.95; */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   &:hover {
@@ -36,28 +36,29 @@ const StyledLink = styled(Link)`
   }
 `;
 
-
 export default class PokemonCard extends Component {
   state = {
-    name: '',
-    imageUrl: '',
-    pokemonIndex: '',
+    name: "",
+    imageUrl: "",
+    pokemonIndex: "",
     imageLoading: true,
-    toManyRequests: false
-  }
+    toManyRequests: false,
+  };
 
   componentDidMount() {
     const { name, url } = this.props;
-    const pokemonIndex = url.split("/")[url.split('/').length - 2];
+    const pokemonIndex = url.split("/")[url.split("/").length - 2];
 
-    let padToThree = (number) => (number <= 999 ? `00${number}`.slice(-3) : number);
-    const POKE_API = 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/';
+    let padToThree = (number) =>
+      number <= 999 ? `00${number}`.slice(-3) : number;
+    const POKE_API =
+      "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/";
     const imageUrl = `${POKE_API}${padToThree(pokemonIndex)}.png`;
 
     this.setState({
       name,
       imageUrl,
-      pokemonIndex
+      pokemonIndex,
     });
   }
 
@@ -71,7 +72,7 @@ export default class PokemonCard extends Component {
               <img
                 src={spinner}
                 alt="pokemon"
-                style ={{ width: '5em', height: '5em' }}
+                style={{ width: "5em", height: "5em" }}
                 className="card-img-top rounded mx-auto d-block mt-2"
               />
             ) : null}
@@ -82,24 +83,24 @@ export default class PokemonCard extends Component {
               onError={() => this.setState({ toManyRequests: true })}
               style={
                 this.state.toManyRequests
-                  ? { display: 'none' } : this.state.imageLoading
-                  ? null : { display: 'block' }
+                  ? { display: "none" }
+                  : this.state.imageLoading
+                  ? null
+                  : { display: "block" }
               }
-            >
-            </Sprite>
+            ></Sprite>
             <div className="class-body mx-auto">
               <h4 className="card-title">
                 {this.state.name
                   .toLowerCase()
-                  .split(' ')
-                  .map(s => s.charAt(0).toUpperCase() + s.substring(1))
-                  .join(' ')
-                }
+                  .split(" ")
+                  .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+                  .join(" ")}
               </h4>
             </div>
           </Card>
         </StyledLink>
       </div>
-    )
+    );
   }
 }

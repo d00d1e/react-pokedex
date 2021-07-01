@@ -1,40 +1,48 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-import PokemonCard from './PokemonCard';
+import PokemonCard from "./PokemonCard";
+import SearchBar from "../layout/SearchBar";
 
+export default function PokemonList() {
+  const [pokemon, setPokemon] = useState(null);
+  const [search, setSearch] = useState("");
 
-export default class PokemonList extends Component {
-  state = {
-    url: 'https://pokeapi.co/api/v2/pokemon/?limit=151',
-    pokemon: null
-  };
+  useEffect(() => {
+    const API_URL = "https://pokeapi.co/api/v2/pokemon/?limit=151";
+    const getPokemon = async () => {
+      const { data } = await axios.get(API_URL);
 
-  async componentDidMount() {
-    const res = await axios.get(this.state.url);
-    this.setState({
-      pokemon: res.data['results']
-    });
-  }
+      setPokemon(data["results"]);
+    };
 
-  render() {
-    return (
-      <div>
-        {this.state.pokemon ? (
-          <div className="row">
-            {this.state.pokemon.map(pokemon => (
-              <PokemonCard
-                key={pokemon.name}
-                name={pokemon.name}
-                url={pokemon.url}
-              />
-            ))}
-          </div>
-        ) : (
-          // <Loading />
-          <h1>Loading...</h1>
-        )}
-      </div>
-    );
-  }
+    getPokemon();
+  }, []);
+
+  const filteredPokemon =
+    search.length === 0
+      ? pokemon
+      : pokemon.filter((p) =>
+          p.name.toLowerCase().includes(search.toLowerCase())
+        );
+
+  return (
+    <div className="container-fluid pt-4 pb-4">
+      <SearchBar search={search} setSearch={setSearch} />
+
+      {pokemon ? (
+        <div className="row pt-4">
+          {filteredPokemon.map((pokemon) => (
+            <PokemonCard
+              key={pokemon.name}
+              name={pokemon.name}
+              url={pokemon.url}
+            />
+          ))}
+        </div>
+      ) : (
+        <h1>Loading...</h1>
+      )}
+    </div>
+  );
 }
