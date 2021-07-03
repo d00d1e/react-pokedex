@@ -71,24 +71,27 @@ export default class PokemonCard extends Component {
             {this.state.imageLoading ? (
               <img
                 src={spinner}
-                alt="pokemon"
+                alt="spinner"
+                onLoad={() => this.setState({ imageLoading: false })}
                 style={{ width: "5em", height: "5em" }}
                 className="card-img-top rounded mx-auto d-block mt-2"
               />
-            ) : null}
-            <Sprite
-              className="card-img-top rounded mx-auto mt-2"
-              src={this.state.imageUrl}
-              onLoad={() => this.setState({ imageLoading: false })}
-              onError={() => this.setState({ toManyRequests: true })}
-              style={
-                this.state.toManyRequests
-                  ? { display: "none" }
-                  : this.state.imageLoading
-                  ? null
-                  : { display: "block" }
-              }
-            ></Sprite>
+            ) : (
+              <Sprite
+                className="card-img-top rounded mx-auto mt-2"
+                src={this.state.imageUrl}
+                onLoad={() => this.setState({ imageLoading: false })}
+                onError={() => this.setState({ toManyRequests: true })}
+                style={
+                  this.state.toManyRequests
+                    ? { display: "none" }
+                    : this.state.imageLoading
+                    ? null
+                    : { display: "block" }
+                }
+              ></Sprite>
+            )}
+
             <div className="class-body mx-auto">
               <h4 className="card-title">
                 {this.state.name

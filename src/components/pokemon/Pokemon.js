@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { NavLink as Link } from "react-router-dom";
 import axios from "axios";
 
+import spinner from "../layout/images/spinner.gif";
+
 const TYPE_COLORS = {
   bug: "B1C12E",
   dark: "4F3A2D",
@@ -28,6 +30,7 @@ export default class Pokemon extends Component {
     name: "",
     pokemonIndex: "",
     imageUrl: "",
+    imageLoading: true,
     types: [],
     description: "",
     stats: {
@@ -226,11 +229,22 @@ export default class Pokemon extends Component {
           <div className="card-body p-5">
             <div className="row align-items-center">
               <div className=" col-md-4 ">
-                <img
-                  src={this.state.imageUrl}
-                  className="card-img-top rounded mx-auto "
-                  alt={this.state.name}
-                />
+                {this.state.imageLoading ? (
+                  <img
+                    src={spinner}
+                    alt="spinner"
+                    onLoad={() => this.setState({ imageLoading: false })}
+                    style={{ width: "5em", height: "5em" }}
+                    className="card-img-top rounded mx-auto d-block mt-2"
+                  />
+                ) : (
+                  <img
+                    src={this.state.imageUrl}
+                    className="card-img-top rounded mx-auto "
+                    onLoad={() => this.setState({ imageLoading: false })}
+                    alt={this.state.name}
+                  />
+                )}
               </div>
               <div className="col-md-8">
                 <h3 className="mx-auto">
