@@ -1,8 +1,19 @@
 import React, { Component } from "react";
 import { NavLink as Link } from "react-router-dom";
 import axios from "axios";
+import styled from "styled-components";
 
 import spinner from "../../images/spinner.gif";
+
+const StyledLink = styled(Link)`
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
+`;
 
 const TYPE_COLORS = {
   bug: "B1C12E",
@@ -214,9 +225,9 @@ export default class Pokemon extends Component {
                 </div>
               </div>
               <div className="col-2">
-                <Link to="/" className="text-uppercase float-right">
-                  Back
-                </Link>
+                <StyledLink to="/" className="text-uppercase float-right">
+                  &lt; Back
+                </StyledLink>
               </div>
             </div>
           </div>
@@ -224,9 +235,20 @@ export default class Pokemon extends Component {
             <div className="row align-items-center">
               <div className=" col-md-4 ">
                 {this.state.imageLoading ? (
-                  <img src={spinner} alt="spinner" onLoad={() => this.setState({ imageLoading: false })} style={{ width: "5em", height: "5em" }} className="card-img-top rounded mx-auto d-block mt-2" />
+                  <img
+                    src={spinner}
+                    alt="spinner"
+                    onLoad={() => this.setState({ imageLoading: false })}
+                    style={{ width: "5em", height: "5em" }}
+                    className="card-img-top rounded mx-auto d-block mt-2"
+                  />
                 ) : (
-                  <img src={this.state.imageUrl} className="card-img-top rounded mx-auto " onLoad={() => this.setState({ imageLoading: false })} alt={this.state.name} />
+                  <img
+                    src={this.state.imageUrl}
+                    className="card-img-top rounded mx-auto "
+                    onLoad={() => this.setState({ imageLoading: false })}
+                    alt={this.state.name}
+                  />
                 )}
               </div>
               <div className="col-md-8">
@@ -457,7 +479,12 @@ export default class Pokemon extends Component {
           </div>
           <div className="card-footer text-muted text-center">
             Powered By{" "}
-            <a target="_blank" rel="noopener noreferrer" href="https://pokeapi.co/" className="card-link">
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://pokeapi.co/"
+              className="card-link"
+            >
               PokeAPI.co
             </a>
           </div>

@@ -1,19 +1,22 @@
 import React, { Component } from "react";
-import { NavLink as Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const Navabar = styled.nav`
+const Navbar = styled.nav`
   background-color: #000 !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export default class navbar extends Component {
   render() {
     return (
-      <Navabar className="navbar navbar-expand-md navbar-dark fixed-top p-4">
-        <Link to="/" className="navbar-brand col-sm-3 mr-0 align-items-center text-uppercase">
-          <span className="h2"> Pokédex</span>
+      <Navbar className="navbar navbar-expand-md navbar-dark fixed-top p-4 w-100">
+        <Link to="/" className="navbar-brand align-items-center text-uppercase">
+          <span className="h2">Pokédex</span>
         </Link>
-      </Navabar>
+      </Navbar>
     );
   }
 }
