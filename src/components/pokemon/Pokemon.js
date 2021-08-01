@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { NavLink as Link } from "react-router-dom";
 import axios from "axios";
 
-import spinner from "../layout/images/spinner.gif";
+import spinner from "../../images/spinner.gif";
 
 const TYPE_COLORS = {
   bug: "B1C12E",
@@ -49,7 +49,7 @@ export default class Pokemon extends Component {
     genderRatioFemale: "",
     evs: "",
     hatchSteps: "",
-    themeColor: "#EF5350",
+    themeColor: "",
   };
 
   async componentDidMount() {
@@ -64,10 +64,9 @@ export default class Pokemon extends Component {
     const name = pokemonRes.data.name;
 
     // const imageUrl = pokemonRes.data.sprites.front_default;
-    let padToThree = (number) =>
-      number <= 999 ? `00${number}`.slice(-3) : number;
-    const POKE_API =
-      "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/";
+    let padToThree = (number) => (number <= 999 ? `00${number}`.slice(-3) : number);
+
+    const POKE_API = "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/";
     const imageUrl = `${POKE_API}${padToThree(pokemonIndex)}.png`;
 
     let { hp, attack, defense, speed, specialAttack, specialDefense } = "";
@@ -99,10 +98,8 @@ export default class Pokemon extends Component {
     });
 
     // convert dm to ft, to lbs, round 2 decimal places
-    const height =
-      Math.round((pokemonRes.data.height * 0.328084 + 0.00001) * 100) / 100;
-    const weight =
-      Math.round((pokemonRes.data.weight * 0.220462 + 0.00001) * 100) / 100;
+    const height = Math.round((pokemonRes.data.height * 0.328084 + 0.00001) * 100) / 100;
+    const weight = Math.round((pokemonRes.data.weight * 0.220462 + 0.00001) * 100) / 100;
     const types = pokemonRes.data.types.map((type) => type.type.name);
     const themeColor = `${TYPE_COLORS[types[types.length - 1]]}`;
     const abilities = pokemonRes.data.abilities
@@ -166,27 +163,24 @@ export default class Pokemon extends Component {
         catchRate,
         eggGroups,
         hatchSteps,
+        imageUrl,
+        pokemonIndex,
+        name,
+        types,
+        stats: {
+          hp,
+          attack,
+          defense,
+          speed,
+          specialAttack,
+          specialDefense,
+        },
+        themeColor,
+        height,
+        weight,
+        abilities,
+        evs,
       });
-    });
-
-    this.setState({
-      imageUrl,
-      pokemonIndex,
-      name,
-      types,
-      stats: {
-        hp,
-        attack,
-        defense,
-        speed,
-        specialAttack,
-        specialDefense,
-      },
-      themeColor,
-      height,
-      weight,
-      abilities,
-      evs,
     });
   }
 
@@ -230,20 +224,9 @@ export default class Pokemon extends Component {
             <div className="row align-items-center">
               <div className=" col-md-4 ">
                 {this.state.imageLoading ? (
-                  <img
-                    src={spinner}
-                    alt="spinner"
-                    onLoad={() => this.setState({ imageLoading: false })}
-                    style={{ width: "5em", height: "5em" }}
-                    className="card-img-top rounded mx-auto d-block mt-2"
-                  />
+                  <img src={spinner} alt="spinner" onLoad={() => this.setState({ imageLoading: false })} style={{ width: "5em", height: "5em" }} className="card-img-top rounded mx-auto d-block mt-2" />
                 ) : (
-                  <img
-                    src={this.state.imageUrl}
-                    className="card-img-top rounded mx-auto "
-                    onLoad={() => this.setState({ imageLoading: false })}
-                    alt={this.state.name}
-                  />
+                  <img src={this.state.imageUrl} className="card-img-top rounded mx-auto " onLoad={() => this.setState({ imageLoading: false })} alt={this.state.name} />
                 )}
               </div>
               <div className="col-md-8">
@@ -255,9 +238,7 @@ export default class Pokemon extends Component {
                     .join(" ")}
                 </h3>
                 <div className="row align-items-center">
-                  <div className={`col-12 col-md-${this.state.statTitleWidth}`}>
-                    HP
-                  </div>
+                  <div className={`col-12 col-md-${this.state.statTitleWidth}`}>HP</div>
                   <div className={`col-12 col-md-${this.state.statBarWidth}`}>
                     <div className="progress">
                       <div
@@ -277,9 +258,7 @@ export default class Pokemon extends Component {
                   </div>
                 </div>
                 <div className="row align-items-center">
-                  <div className={`col-12 col-md-${this.state.statTitleWidth}`}>
-                    Attack
-                  </div>
+                  <div className={`col-12 col-md-${this.state.statTitleWidth}`}>Attack</div>
                   <div className={`col-12 col-md-${this.state.statBarWidth}`}>
                     <div className="progress">
                       <div
@@ -299,9 +278,7 @@ export default class Pokemon extends Component {
                   </div>
                 </div>
                 <div className="row align-items-center">
-                  <div className={`col-12 col-md-${this.state.statTitleWidth}`}>
-                    Defense
-                  </div>
+                  <div className={`col-12 col-md-${this.state.statTitleWidth}`}>Defense</div>
                   <div className={`col-12 col-md-${this.state.statBarWidth}`}>
                     <div className="progress">
                       <div
@@ -321,9 +298,7 @@ export default class Pokemon extends Component {
                   </div>
                 </div>
                 <div className="row align-items-center">
-                  <div className={`col-12 col-md-${this.state.statTitleWidth}`}>
-                    Speed
-                  </div>
+                  <div className={`col-12 col-md-${this.state.statTitleWidth}`}>Speed</div>
                   <div className={`col-12 col-md-${this.state.statBarWidth}`}>
                     <div className="progress">
                       <div
@@ -343,9 +318,7 @@ export default class Pokemon extends Component {
                   </div>
                 </div>
                 <div className="row align-items-center">
-                  <div className={`col-12 col-md-${this.state.statTitleWidth}`}>
-                    Sp Attack
-                  </div>
+                  <div className={`col-12 col-md-${this.state.statTitleWidth}`}>Sp Attack</div>
                   <div className={`col-12 col-md-${this.state.statBarWidth}`}>
                     <div className="progress">
                       <div
@@ -365,9 +338,7 @@ export default class Pokemon extends Component {
                   </div>
                 </div>
                 <div className="row align-items-center">
-                  <div className={`col-12 col-md-${this.state.statTitleWidth}`}>
-                    Sp Defense
-                  </div>
+                  <div className={`col-12 col-md-${this.state.statTitleWidth}`}>Sp Defense</div>
                   <div className={`col-12 col-md-${this.state.statBarWidth}`}>
                     <div className="progress">
                       <div
@@ -456,25 +427,25 @@ export default class Pokemon extends Component {
 
               <div className="col-md-6">
                 <div className="row">
-                  <div className="col-4">
+                  <div className="col-6">
                     <h6 className="float-right">Egg Groups:</h6>
                   </div>
                   <div className="col-6">
                     <h6 className="float-left">{this.state.eggGroups} </h6>
                   </div>
-                  <div className="col-4">
+                  <div className="col-6">
                     <h6 className="float-right">Hatch Steps:</h6>
                   </div>
                   <div className="col-6">
                     <h6 className="float-left">{this.state.hatchSteps}</h6>
                   </div>
-                  <div className="col-4">
+                  <div className="col-6">
                     <h6 className="float-right">Abilities:</h6>
                   </div>
                   <div className="col-6">
                     <h6 className="float-left">{this.state.abilities}</h6>
                   </div>
-                  <div className="col-4">
+                  <div className="col-6">
                     <h6 className="float-right">EVs:</h6>
                   </div>
                   <div className="col-6">
@@ -485,13 +456,8 @@ export default class Pokemon extends Component {
             </div>
           </div>
           <div className="card-footer text-muted text-center">
-            Data From{" "}
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://pokeapi.co/"
-              className="card-link"
-            >
+            Powered By{" "}
+            <a target="_blank" rel="noopener noreferrer" href="https://pokeapi.co/" className="card-link">
               PokeAPI.co
             </a>
           </div>

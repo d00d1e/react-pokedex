@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import styled from "styled-components";
-import spinner from "../layout/images/spinner.gif";
+import spinner from "../../images/spinner.gif";
 
 const Sprite = styled.img`
   width: 5.5em;
@@ -49,10 +49,8 @@ export default class PokemonCard extends Component {
     const { name, url } = this.props;
     const pokemonIndex = url.split("/")[url.split("/").length - 2];
 
-    let padToThree = (number) =>
-      number <= 999 ? `00${number}`.slice(-3) : number;
-    const POKE_API =
-      "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/";
+    let padToThree = (number) => (number <= 999 ? `00${number}`.slice(-3) : number);
+    const POKE_API = "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/";
     const imageUrl = `${POKE_API}${padToThree(pokemonIndex)}.png`;
 
     this.setState({
@@ -69,26 +67,14 @@ export default class PokemonCard extends Component {
           <Card className="card">
             <h5 className="card-header">#{this.state.pokemonIndex}</h5>
             {this.state.imageLoading ? (
-              <img
-                src={spinner}
-                alt="spinner"
-                onLoad={() => this.setState({ imageLoading: false })}
-                style={{ width: "5em", height: "5em" }}
-                className="card-img-top rounded mx-auto d-block mt-2"
-              />
+              <img src={spinner} alt="spinner" onLoad={() => this.setState({ imageLoading: false })} style={{ width: "5em", height: "5em" }} className="card-img-top rounded mx-auto d-block mt-2" />
             ) : (
               <Sprite
                 className="card-img-top rounded mx-auto mt-2"
                 src={this.state.imageUrl}
                 onLoad={() => this.setState({ imageLoading: false })}
                 onError={() => this.setState({ toManyRequests: true })}
-                style={
-                  this.state.toManyRequests
-                    ? { display: "none" }
-                    : this.state.imageLoading
-                    ? null
-                    : { display: "block" }
-                }
+                style={this.state.toManyRequests ? { display: "none" } : this.state.imageLoading ? null : { display: "block" }}
               ></Sprite>
             )}
 

@@ -5,21 +5,25 @@ import Navbar from "./components/layout/Navbar";
 import Dashboard from "./components/layout/Dashboard";
 import Pokemon from "./components/pokemon/Pokemon";
 
-import backgroundImage from "./components/layout/images/bg.jpg";
-import "./App.css";
+import backgroundImage from "./images/bg.jpg";
+import styled from "styled-components";
+
+const Container = styled.div`
+  background: url(${backgroundImage});
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding-top: 6rem;
+  min-height: 100vh;
+  font-family: "VT323", monospace;
+  font-size: 1.5rem;
+`;
 
 export default function App() {
   return (
     <Router basename="/react-pokedex">
-      <div
-        className="App"
-        style={{
-          background: `url(${backgroundImage})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundAttachment: "fixed",
-        }}
-      >
+      <Container>
         <Navbar />
         <div className="container">
           <Switch>
@@ -27,7 +31,7 @@ export default function App() {
             <Route exact path="/pokemon/:pokemonIndex" component={Pokemon} />
           </Switch>
         </div>
-      </div>
+      </Container>
     </Router>
   );
 }
