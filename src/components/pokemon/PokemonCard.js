@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
 
 import spinner from "../../images/spinner.gif";
@@ -12,6 +13,8 @@ const Sprite = styled.img`
 const Card = styled.div`
   width: 100%;
   height: auto;
+  margin: 0 auto;
+
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   &:hover {
@@ -40,19 +43,33 @@ const StyledLink = styled(Link)`
 export default function PokemonCard({ name, url }) {
   const [imageUrl, setImageUrl] = useState("");
   const [pokemonIndex, setPokemonIndex] = useState("");
+  const [pokemonData, setPokemonData] = useState("");
   const [imageLoading, setImageLoading] = useState(true);
   const [tooManyRequests, setTooManyRequests] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const index = url.split("/")[url.split("/").length - 2];
 
-    let padToThree = (number) => (number <= 999 ? `00${number}`.slice(-3) : number);
-    const POKE_API = "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/";
+    let padToThree = (number) =>
+      number <= 999 ? `00${number}`.slice(-3) : number;
+    const POKE_API =
+      "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/";
     const imageUrl = `${POKE_API}${padToThree(index)}.png`;
 
     setImageUrl(imageUrl);
     setPokemonIndex(index);
-  }, [url]);
+
+    const getPokemonData = async () => {
+      const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${index}/`;
+
+      const { data } = await axios.get(pokemonUrl);
+      setPokemonData(data);
+    };
+
+    getPokemonData();
+  }, [pokemonIndex, url]);
+
   return (
     <div className="col-lg-3 col-md-4 col-sm-6 mb-5">
       <StyledLink to={`pokemon/${pokemonIndex}`}>
@@ -73,11 +90,14 @@ export default function PokemonCard({ name, url }) {
               onLoad={() => setImageLoading(false)}
               onError={() => setTooManyRequests(true)}
               style={
-                tooManyRequests ? { display: "none" } : imageLoading ? null : { display: "block" }
+                tooManyRequests
+                  ? { display: "none" }
+                  : imageLoading
+                  ? null
+                  : { display: "block" }
               }
             />
           )}
-
           <div className="class-body mx-auto">
             <h4 className="card-title">
               {name
@@ -86,6 +106,12 @@ export default function PokemonCard({ name, url }) {
                 .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
                 .join(" ")}
             </h4>
+            {location.pathname === "/pokemongame" && (
+              <p className=" card-text text-muted pb-3">
+                Exp:{" "}
+                <span className="text-info">{pokemonData.base_experience}</span>
+              </p>
+            )}
           </div>
         </Card>
       </StyledLink>
