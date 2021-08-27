@@ -8,8 +8,7 @@ import PokemonCard from "./PokemonCard";
 import styled from "styled-components";
 
 const Container = styled.div`
-  background-color: #fefbff;
-  border-radius: 50%;
+  background-color: rgba(254, 251, 255, 0.4);
 `;
 
 const StyledLink = styled(Link)`
@@ -24,7 +23,7 @@ const StyledLink = styled(Link)`
 
 const Winner = styled.h2`
   font-size: 2.5rem;
-  color: red;
+  color: green;
   text-transform: uppercase;
 `;
 
@@ -107,17 +106,17 @@ export default function PokemonGame() {
   const isWinner = userPokemonExpTotal > compPokemonExpTotal;
 
   return (
-    <Container className="container p-2">
+    <div className="container-fluid p-2">
       <StyledLink to="/" className="text-light text-uppercase">
         &lt; Back
       </StyledLink>
-      <div className="text-center">
+      <Container className="text-center rounded">
         <h2 className="text-uppercase display-4 p-1">Your Hand</h2>
         <h3>
           Total Exp: <Span>{userPokemonExpTotal}</Span>
         </h3>
         <Winner>{isWinner ? "Winner!" : ""}</Winner>
-        <div className="d-flex align-items-center justify-content-center">
+        <div className="row d-flex align-items-center justify-content-center">
           {userHand[0] &&
             [...userHand].map((p) => (
               <PokemonCard key={p.name} name={p.name} url={p.url} />
@@ -131,13 +130,13 @@ export default function PokemonGame() {
           Total Exp: <Span>{compPokemonExpTotal}</Span>
         </h3>
         <Winner className="">{!isWinner ? "Winner!" : ""}</Winner>
-        <div className="d-flex align-items-center justify-content-center">
+        <div className="row d-flex align-items-center justify-content-center">
           {compHand[0] &&
             [...compHand].map((p) => (
               <PokemonCard key={p.name} name={p.name} url={p.url} />
             ))}
         </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
   );
 }

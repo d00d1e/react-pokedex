@@ -14,13 +14,13 @@ import backgroundImage from "./images/bg.jpg";
 const Container = styled.div`
   background: url(${backgroundImage});
   background-size: cover;
-  background-attachment: fixed;
-  /* background-position: center; */
-  /* background-repeat: no-repeat; */
+  /* background-attachment: fixed; */
+  background-repeat: no-repeat;
   background-repeat: repeat;
 
   padding-top: 6rem;
   min-height: 100vh;
+  min-width: 100vw;
   font-family: "VT323", monospace;
   font-size: 1.5rem;
 `;
